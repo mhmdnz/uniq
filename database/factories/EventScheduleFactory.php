@@ -23,7 +23,7 @@ class EventScheduleFactory extends Factory
         return [
             'start' => $start,
             'end' => $end,
-            'calendar_events_id' => CalendarEvent::factory()->create()
+            'calendar_event_id' => CalendarEvent::factory()->create()
         ];
     }
 }
