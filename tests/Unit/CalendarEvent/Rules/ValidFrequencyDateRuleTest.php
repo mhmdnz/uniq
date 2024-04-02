@@ -20,7 +20,7 @@ class ValidFrequencyDateRuleTest extends TestCase
 
         $this->assertTrue($valid);
     }
-    
+
     public function testInvalidDailyFrequency()
     {
         $rule = new ValidFrequencyDateRule(true, FrequencyEnum::DAILY->value);
