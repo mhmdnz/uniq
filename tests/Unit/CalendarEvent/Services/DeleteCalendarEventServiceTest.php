@@ -11,6 +11,7 @@ class DeleteCalendarEventServiceTest extends TestCase
 {
     public function testInvokeDeletesCalendarEventSuccessfully()
     {
+        //ARRANGE
         $calendarEventRepositoryMock = Mockery::mock(CalendarEventRepositoryInterface::class);
         $sut = new DeleteCalendarEventService($calendarEventRepositoryMock);
         $id = 1;
@@ -21,7 +22,7 @@ class DeleteCalendarEventServiceTest extends TestCase
             ->with($id)
             ->andReturnTrue();
 
-        // Attempt to delete the calendar event
+        // ACT
         ($sut)($id);
     }
 
