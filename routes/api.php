@@ -7,5 +7,6 @@ Route::prefix('/calendar-event')
     ->group(static function (): void {
         Route::post('/', 'AddCalendarEventController');
         Route::get('/', 'GetCalendarEventListController');
-        Route::patch('/{id}', 'UpdateCalendarEventController');
+        Route::put('/{id}', 'UpdateCalendarEventController');
+        Route::delete('/{id}', 'DeleteCalendarEventController');
     });

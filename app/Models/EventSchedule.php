@@ -25,6 +25,11 @@ class EventSchedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'start',
+        'end'
+    ];
+
     public function calendarEvent(): BelongsTo
     {
         return $this->belongsTo(CalendarEvent::class);

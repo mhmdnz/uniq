@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('start');
             $table->date('end');
-            $table->unsignedBigInteger('calendar_events_id');
+            $table->unsignedBigInteger('calendar_event_id');
             $table->timestamps();
 
-            $table->foreign('calendar_events_id')
+            $table->foreign('calendar_event_id')
                 ->references('id')
                 ->on('calendar_events')
                 ->onDelete('cascade');
