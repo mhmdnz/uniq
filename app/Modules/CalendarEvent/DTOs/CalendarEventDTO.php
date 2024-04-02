@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Date;
 class CalendarEventDTO
 {
     public function __construct(
-        public ?string $title,
-        public ?string $start,
-        public ?string $end,
-        public ?string $description,
+        public ?string $title = null,
+        public ?string $start = null,
+        public ?string $end = null,
+        public ?string $description = null,
         public ?bool $recurring = false,
         public ?string $frequency = null,
         public ?string $repeatUntil = null
