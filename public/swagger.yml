@@ -1,0 +1,256 @@
+openapi: 3.0.0
+info:
+  title: 'API Documentation'
+  description: 'Description removed for better illustration of structure.'
+  contact:
+    name: Mhmd
+    url: www.linkedin.com/in/mhmd-nzri
+    email: mhmd_nzri@yahoo.com
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+paths:
+  /calendar-event:
+    get:
+      tags:
+        - CalendarEvent
+      summary: 'Get list of all Calendar Events'
+      operationId: getCalendarEventList
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                properties:
+                  data: { description: 'An array of calendar events', type: array, items: { $ref: '#/components/schemas/CalendarEventResource' } }
+                  links: { description: 'Links to other pages of results', properties: { first: { type: string, format: uri, example: 'http://localhost/api/calendar-event?page=1' }, last: { type: string, format: uri, example: 'http://localhost/api/calendar-event?page=1' }, prev: { type: string, format: uri, example: null }, next: { type: string, format: uri, example: null } }, type: object }
+                  meta: { description: 'Metadata about the pagination', properties: { current_page: { type: integer, example: 1 }, from: { type: integer, example: 1 }, last_page: { type: integer, example: 1 }, path: { type: string, format: uri, example: 'http://localhost/api/calendar-event' }, per_page: { type: integer, example: 15 }, to: { type: integer, example: 6 }, total: { type: integer, example: 6 } }, type: object }
+                type: object
+        '404':
+          description: 'No Calendar Events found'
+    post:
+      tags:
+        - CalendarEvent
+      summary: 'Create a new Calendar Event'
+      operationId: createCalendarEvent
+      requestBody:
+        description: 'Data for creating a new calendar event'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCalendarEventRequest'
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEventResource'
+        '400':
+          description: 'Bad Request'
+        '422':
+          description: 'Validation Error'
+  '/calendar-event/{id}':
+    put:
+      tags:
+        - CalendarEvent
+      summary: 'Update an existing Calendar Event'
+      operationId: updateCalendarEvent
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the Calendar Event to update'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: 'Data for updating the calendar event'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCalendarEventRequest'
+      responses:
+        '200':
+          description: 'Calendar event updated successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEventResource'
+        '404':
+          description: 'Calendar Event not found'
+        '422':
+          description: 'Validation error'
+    delete:
+      tags:
+        - CalendarEvent
+      summary: 'Delete a calendar event'
+      operationId: e13f679765d660ce561aceeef69c8899
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Calendar Event ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'No Content'
+        '404':
+          description: 'Not Found'
+components:
+  schemas:
+    AddCalendarEventRequest:
+      required:
+        - title
+        - start
+        - end
+      properties:
+        title:
+          description: 'Title of the calendar event'
+          type: string
+          maxLength: 255
+        description:
+          description: 'Description of the calendar event'
+          type: string
+          maxLength: 255
+        start:
+          description: 'Start date of the event'
+          type: string
+          format: date
+        end:
+          description: 'End date of the event, must be after or equal to the start date'
+          type: string
+          format: date
+        recurring:
+          description: 'Indicates if the event is recurring'
+          type: boolean
+        frequency:
+          description: 'Frequency of the event if it is recurring'
+          type: string
+        repeat_until:
+          description: 'The date until which a recurring event should repeat'
+          type: string
+          format: date
+      type: object
+    UpdateCalendarEventRequest:
+      required:
+        - id
+      properties:
+        id:
+          description: 'The ID of the calendar event to update'
+          type: integer
+          example: 1
+        title:
+          description: 'Title of the calendar event'
+          type: string
+          maxLength: 255
+          example: 'Updated Event Title'
+        description:
+          description: 'Description of the calendar event'
+          type: string
+          maxLength: 255
+          example: 'Updated Event Description'
+        start:
+          description: 'Start date of the event'
+          type: string
+          format: date
+          example: '2024-01-01'
+        end:
+          description: 'End date of the event, which must be after or equal to the start date'
+          type: string
+          format: date
+          example: '2024-01-02'
+        recurring:
+          description: 'Indicates if the event is recurring'
+          type: boolean
+          example: true
+        frequency:
+          description: 'The frequency of the event if it is recurring'
+          type: string
+          enum:
+            - DAILY
+            - WEEKLY
+            - MONTHLY
+            - YEARLY
+        repeat_until:
+          description: 'The date until which a recurring event should repeat'
+          type: string
+          format: date
+          example: '2024-12-31'
+      type: object
+    CalendarEventCollection:
+      title: CalendarEventCollection
+      description: 'Calendar event collection'
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarEventResource'
+      type: object
+      xml:
+        name: CalendarEventCollection
+    CalendarEventResource:
+      title: CalendarEventResource
+      description: 'Calendar event resource'
+      properties:
+        id:
+          description: 'Transform the resource into an array.'
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 'Event Title'
+        description:
+          type: string
+          example: 'Event Description'
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-03-10T15:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2021-03-10T15:00:00Z'
+        event_schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSchedulesCollection'
+      type: object
+      xml:
+        name: CalendarEventResource
+    EventSchedulesCollection:
+      title: EventSchedulesCollection
+      description: 'Event schedules collection'
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSchedulesResource'
+      type: object
+      xml:
+        name: EventSchedulesCollection
+    EventSchedulesResource:
+      title: EventSchedulesResource
+      description: 'Event schedules resource'
+      properties:
+        id:
+          description: 'Transform the resource into an array.'
+          type: integer
+          example: 1
+        start:
+          type: string
+          format: date-time
+          example: '2021-03-10T09:00:00Z'
+        end:
+          type: string
+          format: date-time
+          example: '2021-03-10T11:00:00Z'
+      type: object
+      xml:
+        name: EventSchedulesResource
