@@ -11,6 +11,7 @@ Welcome to the Uniq project! This document serves as a comprehensive guide to he
 - [Functionality](#Functionality)
 - [Running Tests](#running-tests)
 - [Technical Aspects](#technical-aspects)
+- [Missing parts](#Missing-parts)
 - [Modular Architecture](#modular-architecture)
 - [Documentation](#Documentation)
 - [Tests](#tests)
@@ -61,7 +62,7 @@ You can start using the project by sending REST request:
 
 ## Functionality
 In this project as it was on my decision, I decided to only cover Dates, so that you can create an event for the given date(Whole day)
-<hr>
+
 <br>Conditions:
 <br>if user wants to add new event in same day, user will get error.
 <br>if user wants to add recurring options, for daily, the Start and End date must be in same date, so that I will add that event till the given 'repeat_until'. this is same for weekly/Monthly/Yearly. for example if user wants to have weekly repeated, I will get give weekdays, and repeat it throw other weeks.
@@ -75,13 +76,6 @@ You can run tests by using this command:
 ## Technical Aspects
 Please note that the project was written in three days and will have some issues. To me, it's a 70% good project. 
 
-## Missing parts
-    - Didn't support hours in the project functionlity
-    - In this project I haven't used dictionaries, so all my texts/messages are hard coded which is missed.
-    - I tried to use configs in project (Atleast for pagination size which I put it in .env) but I should have covered more.
-    - I haven't used CONSTs in the project. there were some cases that I could used
-    - Functional tests were missed In the project
-
 ## SOLID
 I tried to follow SOLID/KISS as much as possible, you can check that I used single action classes for my services, means they only do one task(Single Responsibility),
 <br>for Interface segregation, you can see that I always create Interface before I start writing a service.
@@ -93,10 +87,17 @@ Please check the `app/Modules/CalendarEvent` directory to see all the codes. I w
 ## Application Layers
 In this application, I used four different layers: Controllers, Services, and Repositories. Although I could have used Actions Layer, I decided not to because it might looks more complicate(following KISS).In my module each layer interacts with the others, making it easily manageable. This separation ensures that the logic representing business processes is distinct from the representation layer and database layer.
 You can check resources directories to find :
-    <br> Resources and Collections for presentation layer
-    <br> All logics in Services directory
-    <br> All necessary queries in Repositories
-    <br> All validations in Requests directory
+<br> Resources and Collections for presentation layer
+<br> All logics in Services directory
+<br> All necessary queries in Repositories
+<br> All validations in Requests directory
+
+## Missing parts
+    - Didn't support hours in the project functionlity
+    - In this project I haven't used dictionaries, so all my texts/messages are hard coded which is missed.
+    - I tried to use configs in project (Atleast for pagination size which I put it in .env) but I should have covered more.
+    - I haven't used CONSTs in the project. there were some cases that I could used
+    - Functional tests were missed In the project
 
 ## Documentation
 I used OpenAPI to document everything, you can check all annotations in top of my controller/resources/requests classes.
