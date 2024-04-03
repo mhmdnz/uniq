@@ -15,15 +15,16 @@ class GetRecurringDatesService implements GetRecurringDatesServiceInterface
     public function __invoke(CalendarEventDTO $calendarEventDTO): EventScheduleDTOCollection
     {
         $eventScheduleDTOCollection = new EventScheduleDTOCollection();
-        if (!$calendarEventDTO->recurring) {
-            $eventScheduleDTOCollection->add(new EventScheduleDTO(
-                $calendarEventDTO->start,
-                $calendarEventDTO->end
+        if ($calendarEventDTO->recurring === false) {
+            $eventScheduleDTOCollection->add(new EventSchedule(
+                [
+                    'start' => $calendarEventDTO->start,
+                    'end' => $calendarEventDTO->end
+                ]
             ));
         } else {
             $eventScheduleDTOCollection = $this->generateEventSchedules($calendarEventDTO);
         }
-
         return $eventScheduleDTOCollection;
     }
 

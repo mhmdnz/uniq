@@ -7,16 +7,15 @@ use App\Modules\CalendarEvent\Collections\EventScheduleDTOCollection;
 use App\Modules\CalendarEvent\DTOs\CalendarEventDTO;
 use App\Modules\CalendarEvent\Interfaces\CalendarEventRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorAlias;
-use Illuminate\Support\Collection;
 
 class CalendarEventRepository implements CalendarEventRepositoryInterface
 {
     public function createWithEventSchedules(
         EventScheduleDTOCollection $eventScheduleDTOCollection,
         ?CalendarEventDTO $calendarEventDTO = null,
-        ?int $calendarEventId = null
+        ?int $calendarEventId = 0
     ): CalendarEvent {
-        if ($calendarEventDTO) {
+        if ($calendarEventId == 0) {
             $calendarEvent = CalendarEvent::create([
                 'title' => $calendarEventDTO->title,
                 'description' => $calendarEventDTO->description
@@ -24,7 +23,6 @@ class CalendarEventRepository implements CalendarEventRepositoryInterface
         } else {
             $calendarEvent = CalendarEvent::find($calendarEventId);
         }
-
         $calendarEvent->eventSchedules()->saveMany($eventScheduleDTOCollection->all());
 
         return $calendarEvent->load('eventSchedules');
