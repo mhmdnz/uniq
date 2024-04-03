@@ -98,6 +98,7 @@ You can check resources directories to find :
     - I tried to use configs in project (Atleast for pagination size which I put it in .env) but I should have covered more.
     - I haven't used CONSTs in the project. there were some cases that I could used
     - Functional tests were missed In the project
+    - Unit tests are not covering edge cases
 
 ## Documentation
 I used OpenAPI to document everything, you can check all annotations in top of my controller/resources/requests classes.
