@@ -39,7 +39,8 @@ class NoScheduleOverlapRule implements ValidationRule
             foreach ($schedules->all() as $schedule) {
                 $conflicts = ($eventScheduleRepository)->getByDate(
                     $schedule->start,
-                    $schedule->end
+                    $schedule->end,
+                    $this->formRequest->id !== null
                 );
 
                 if ($conflicts) {

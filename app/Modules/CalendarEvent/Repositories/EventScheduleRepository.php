@@ -10,10 +10,13 @@ use Illuminate\Support\Collection;
 class EventScheduleRepository implements EventScheduleRepositoryInterface
 {
 
-    public function getByDate(string $start, string $end): Collection
+    public function getByDate(string $start, string $end, ?int $id = 0): Collection
     {
-        return EventSchedule::where('start', '<=', $end)
-            ->where('end', '>=', $start)->get();
+        $query = EventSchedule::where('start', '<=', $end);
+        if ($id > 0) {
+            $query->where('event_calendar_id', '!=', $id);
+        }
+        return $query->where('end', '>=', $start)->get();
     }
 
     public function getCalendarEvent(int $id): CalendarEvent
