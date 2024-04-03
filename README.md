@@ -42,12 +42,12 @@ Docker provides a way to run applications securely isolated in a container, pack
 
 ## How to Use the Project
 You can start using the project by sending REST request:
-`GET - localhost/api/calendar-event`
-`POST - localhost/api/calendar-event`
-`UPDATE - localhost/api/calendar-event/{id}`
-`Delete - localhost/api/calendar-event/{id}`
-you can use following JSON RAW to create and update:
-`{
+<br>`GET - localhost/api/calendar-event`
+<br>`POST - localhost/api/calendar-event`
+<br>`PUT - localhost/api/calendar-event/{id}`
+<br>`Delete - localhost/api/calendar-event/{id}`
+<br>you can use following JSON RAW to create and update:
+<br>`{
 "title":"test",
 "start":"2027-04-16",
 "end":"2027-04-16",
@@ -66,6 +66,7 @@ In this project as it was on my decision, I decided to only cover Dates, so that
 <br>if user wants to add new event in same day, user will get error.
 <br>if user wants to add recurring options, for daily, the Start and End date must be in same date, so that I will add that event till the given 'repeat_until'. this is same for weekly/Monthly/Yearly. for example if user wants to have weekly repeated, I will get give weekdays, and repeat it throw other weeks.
 <br>if user try to add another event which even one of given events get conflict by other events (included recurring ones) he/she will get appropriate error validation.
+<br>to update an event, I used the simples way of updating which is (delete/create) for Calendar Events.(might not be the best solution, but the fastest for my time limitation)
 
 ## Running Tests
 You can run tests by using this command:
